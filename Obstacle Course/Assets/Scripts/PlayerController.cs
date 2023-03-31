@@ -26,4 +26,12 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(xValue, 0f, zValue);
     }
+
+    private void OnCollisionEnter(Collision other) 
+    {
+        if(other.gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
