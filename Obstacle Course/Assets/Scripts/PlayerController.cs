@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private GameManager _gameManager;
+    public GameObject YouWonScrene;
 
     [SerializeField] private float _moveSpeed = 10;
 
@@ -32,6 +34,14 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Obstacle"))
         {
             Destroy(this.gameObject);
+            _gameManager.GameOver();
+        }
+        else
+        {
+            if(other.gameObject.CompareTag("Flag"))
+            {
+                YouWonScrene.gameObject.SetActive(true);
+            }
         }
     }
 }

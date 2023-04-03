@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hit
   - Obstacle
+  - Flag
   layers:
   - Default
   - TransparentFX
