@@ -7,21 +7,37 @@ public class Player : MonoBehaviour
     private GameManager _gameManager;
     public GameObject YouWonScrene;
     public float jumpForce = 10;
+    public float gravityModifier;
     private Rigidbody _playerRB;
-    public bool isOnGround = false;
+    public bool isOnGround = true;
+    public float RotationSpeed;
 
     [SerializeField] private float _moveSpeed = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _playerRB = GetComponent<Rigidbody>();
+        Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 fowardInput = transform.forward * Input.GetAxis("Vertical");
+
+        _playerRB.AddForce(fowardInput * _moveSpeed, ForceMode.Impulse);
+        transform.Rotate(Vector3.up, horizontalInput * RotationSpeed * Time.deltaTime);
+
+
+         if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            _playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
+        }
+
+      
     }
 
     void Movement()
@@ -30,15 +46,6 @@ public class Player : MonoBehaviour
         float zValue = Input.GetAxis("Vertical") * _moveSpeed * Time.deltaTime;
 
         transform.Translate(xValue, 0f, zValue);
-    }
-
-     void Jump()
-    {
-        if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            _playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isOnGround = false;
-        }
     }
 
      private void OnCollisionEnter(Collision other)
