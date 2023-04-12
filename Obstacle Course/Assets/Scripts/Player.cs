@@ -4,56 +4,50 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private GameManager _gameManager;
-    public GameObject YouWonScrene;
+    public float Speed = 10f;
+    public float RotationSpeed = 45f;
+    public GameObject Bullet;
+    public GameObject SpawnPos;
+
     public float jumpForce = 10;
     public float gravityModifier;
-    private Rigidbody _playerRB;
-    public bool isOnGround = true;
-    public float RotationSpeed;
+    public bool isOnground = true;
 
-    [SerializeField] private float _moveSpeed = 10;
+    private Rigidbody _playerRb;
 
     // Start is called before the first frame update
     void Start()
     {
-        _playerRB = GetComponent<Rigidbody>();
+        _playerRb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        Vector3 fowardInput = transform.forward * Input.GetAxis("Vertical");
+        float horizontalInput =Input.GetAxis("Horizontal");
+        Vector3 forwardInput = transform.forward * Input.GetAxis("Vertical");
 
-        _playerRB.AddForce(fowardInput * _moveSpeed, ForceMode.Impulse);
+        _playerRb.AddForce(forwardInput * Speed, ForceMode.Acceleration);
         transform.Rotate(Vector3.up, horizontalInput * RotationSpeed * Time.deltaTime);
 
-
-         if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if(Input.GetKeyDown(KeyCode.F))
         {
-            _playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isOnGround = false;
+            Instantiate(Bullet, SpawnPos.transform.position, SpawnPos.transform.rotation);
         }
 
-      
+        if (Input.GetKeyDown(KeyCode.Space) && isOnground)
+        {
+            _playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnground = false;
+        }
     }
 
-    void Movement()
-    {
-        float xValue = Input.GetAxis("Horizontal") * _moveSpeed * Time.deltaTime;
-        float zValue = Input.GetAxis("Vertical") * _moveSpeed * Time.deltaTime;
-
-        transform.Translate(xValue, 0f, zValue);
-    }
-
-     private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other) 
     {
         if(other.gameObject.CompareTag("Ground"))
         {
-            isOnGround = true;
+            isOnground = true;
         }
     }
-
 }
