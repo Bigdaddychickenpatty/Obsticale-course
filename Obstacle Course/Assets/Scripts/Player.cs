@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Player : MonoBehaviour
     public float jumpForce = 10;
     public float gravityModifier;
     public bool isOnground = true;
+    private GameManager _gameManager;
+    public GameObject YouWonScrene;
 
     private Rigidbody _playerRb;
 
@@ -31,7 +34,7 @@ public class Player : MonoBehaviour
         _playerRb.AddForce(forwardInput * Speed, ForceMode.Acceleration);
         transform.Rotate(Vector3.up, horizontalInput * RotationSpeed * Time.deltaTime);
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.RightShift))
         {
             Instantiate(Bullet, SpawnPos.transform.position, SpawnPos.transform.rotation);
         }
@@ -48,6 +51,17 @@ public class Player : MonoBehaviour
         if(other.gameObject.CompareTag("Ground"))
         {
             isOnground = true;
+        }
+        if(other.gameObject.CompareTag("Obstacle"))
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            if(other.gameObject.CompareTag("Star"))
+            {
+                YouWonScrene.gameObject.SetActive(true);
+            }
         }
     }
 }

@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4731461163119023779}
   - component: {fileID: -5195377259152567796}
   - component: {fileID: -507143381980546693}
+  - component: {fileID: 2819910915473889141}
   m_Layer: 0
   m_Name: ball
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e5cfd7c204e2f34b82c865aed950789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 40
 --- !u!54 &-507143381980546693
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -114,3 +116,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &2819910915473889141
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6532887614686214006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.9999997
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: -0.00000029802322, y: 0, z: 0.000000029802322}

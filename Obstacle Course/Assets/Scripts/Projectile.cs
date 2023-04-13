@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Rigidbody _targetRb;
-
+    public float Speed = 40;
+    
     // Start is called before the first frame update
     void Start()
     {
-         _targetRb = GetComponent<Rigidbody>();
-
-        _targetRb.AddForce(Vector3.forward, ForceMode.Impulse);
+ 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(Vector3.forward * Speed * Time.deltaTime);
     }
 }
