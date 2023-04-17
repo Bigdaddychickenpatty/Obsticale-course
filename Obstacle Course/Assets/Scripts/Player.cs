@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public bool isOnground = true;
     private GameManager _gameManager;
     public GameObject YouWonScrene;
+    public GameObject GameOverPanel;
+    private Vector3 _startPos;
 
     private Rigidbody _playerRb;
 
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
     {
         _playerRb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
+        _startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -52,10 +55,6 @@ public class Player : MonoBehaviour
         {
             isOnground = true;
         }
-        if(other.gameObject.CompareTag("Obstacle"))
-        {
-            SceneManager.LoadScene(0);
-        }
         else
         {
             if(other.gameObject.CompareTag("Star"))
@@ -64,4 +63,9 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public void ResetPlayerPosition()
+        {
+            transform.position = _startPos;
+        }
 }

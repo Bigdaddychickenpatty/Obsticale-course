@@ -8,23 +8,30 @@ public class Target : MonoBehaviour
 {
     public TextMeshProUGUI Targets;
     public GameObject Star;
+    public GameObject NextTarget;
 
-    [SerializeField] private int _hits = 1;
+    [SerializeField] private int _hits = 0;
 
     private void OnCollisionEnter(Collision other) 
     {
         if(other.gameObject.CompareTag("Bullet"))
         {
             Destroy(this.gameObject);
+            Destroy(other.gameObject);
 
-            _hits--;
-            Targets.text = _hits.ToString();
+            NextTarget.gameObject.SetActive(true);
 
-        if(_hits <= 0)
+            //_hits--;
+            //Targets.text = _hits.ToString();
+        }
+
+        else
         {
-            Star.gameObject.SetActive(true);
+            if(_hits <= 0)
+            {
+                Star.gameObject.SetActive(true);
+            }
         }
 
         }
     }
-}
